@@ -1,0 +1,4 @@
+client/Rakefile
+client/node_modules
+server/api/data/*.json
+server/api/node_modules
