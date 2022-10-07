@@ -3,10 +3,8 @@ require_relative './objects/tile.rb'
 require_relative './objects/tiles.rb'
 
 tiles = [
-    Tiles::Eye_Right,
-    Tiles::Eye_Down,
-    Tiles::Eye_Up,
-    Tiles::Eye_Left,
+    Tiles::Shrub_A,
+    Tiles::Shrub_B,
 ]
 
 for tile in tiles do

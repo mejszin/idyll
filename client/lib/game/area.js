@@ -52,7 +52,13 @@ class Area {
                 if ((id !== null) && !(id in tiles)) {
                     tiles[id] = {};
                     getTile(player_token, id, (response) => {
-                        tiles[id] = response;
+                        if (response != -1) {
+                            tiles[id] = response;
+                        } else {
+                            getTile(player_token, 'test', (response) => {
+                                tiles[id] = response;
+                            })
+                        }
                     })
                 }
             }

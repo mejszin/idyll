@@ -16,6 +16,9 @@ module Tiles
     Test = Tile.new('test', 'Test', 'test_tileset', [0, 1], false)
     Water = Tile.new('water', 'Water', 'tiny_dungeon_world', [132, 133], true)
     StoneFloor = Tile.new('stone_floor', 'Stone Floor', 'tiny_dungeon_world', [6], false)
+    # Shrub
+    Shrub_A = Tile.new('shrub_a', 'Shrub', 'tiny_dungeon_world', [261], true)
+    Shrub_B = Tile.new('shrub_b', 'Shrub', 'tiny_dungeon_world', [262], true)
     # Torch
     Torch = Tile.new('torch', 'Torch', 'tiny_dungeon_world', [197, 198], false, 12, AnimationStyle::Unstable)
     # Grass
@@ -46,6 +49,7 @@ module Tiles
     Sand_D = Tile.new('sand_d', 'Sand', 'tiny_galaxy_world', [107], false)
     Sand_E = Tile.new('sand_e', 'Sand', 'tiny_galaxy_world', [108], false)
     Sand_F = Tile.new('sand_f', 'Sand', 'tiny_galaxy_world', [109], false)
+    Sand_G = Tile.new('sand_g', 'Sand', 'tiny_galaxy_world', [110], false)
     # Space
     Space_A = Tile.new('space_a', 'Space', 'tiny_galaxy_world', [340], false)
     Space_B = Tile.new('space_b', 'Space', 'tiny_galaxy_world', [341], false)

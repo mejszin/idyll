@@ -1,7 +1,7 @@
 require_relative './tiles.rb'
 
-MAP_WIDTH = 32
-MAP_HEIGHT = 24
+MAP_WIDTH = 20 # 32
+MAP_HEIGHT = 16 # 24
 
 class Map
     def initialize(initial = nil)
@@ -25,6 +25,10 @@ class Map
     end
 
     def to_json
-        return @map.map { |row| row.map { |tile| { :id => (tile == nil ? nil : tile.id) } } }
+        @map.map do |row| 
+            row.map do |tile|
+                { :id => (tile == nil ? nil : tile.id) }
+            end
+        end
     end
 end

@@ -2,8 +2,8 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-BASE_URL = 'https://mindful.machin.dev/api'
-API_TOKEN = 'U7qTXOOX'
+BASE_URL = 'https://idyll.machin.dev/api'
+API_TOKEN = File.read('../api_token')
 
 def post(route, headers = {}, body = nil)
     uri = URI(BASE_URL + route)

@@ -2,8 +2,8 @@ const GAME_SRC = '../lib/game';
 
 const TILESIZE = 32;
 const FRAME_RATE = 20;
-const AREA_WIDTH = 32;
-const AREA_HEIGHT = 24;
+const AREA_WIDTH = 20 // 32;
+const AREA_HEIGHT = 16 // 24;
 
 var player_token;
 var player_id;

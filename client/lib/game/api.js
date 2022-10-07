@@ -1,4 +1,4 @@
-const BASE_URL = 'https://mindful.machin.dev/api';
+const BASE_URL = 'https://idyll.machin.dev/api';
 var api_lock = false;
 
 function getPosition(token = player_token, id = player_id, callback) {
@@ -41,5 +41,8 @@ function getTile(token = player_token, id, callback) {
     httpGet(url, 'json', true, function(response) {
         console.log('/game/tile/get', response);
         callback(response);
+    }, function(error) {
+        console.log('ERROR /game/tile/get', error);
+        callback(-1);
     });
 }

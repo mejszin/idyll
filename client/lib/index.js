@@ -7,8 +7,8 @@ const debug = true;
 
 const title = 'idyll';
 
-const width = 32 * 32 + (debug ? 400 : 0);
-const height = 24 * 32;
+const width = 20 * 32 + (debug ? 480 : 0);
+const height = 16 * 32;
 
 var config = ini.parse(fs.readFileSync('./data/config.ini', 'utf-8'));
 
