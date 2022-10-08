@@ -10,9 +10,27 @@ class Area {
         };
     }
 
+    debug(i, j) {
+        let mask_tile = area.get(area.maps.mask, i, j);
+        let ground_tile = area.get(area.maps.ground, i, j);
+        let fringe_tile = area.get(area.maps.fringe, i, j);
+        console.table({
+            ground: ground_tile.name(),
+            mask: mask_tile.name(),
+            fringe: fringe_tile.name(),
+            collidable: (ground_tile.collidable() || mask_tile.collidable() || fringe_tile.collidable()),
+            destructable: (mask_tile.destructable() != false)
+        })
+    }
+
     get(map, i, j) {
         let index = j * AREA_WIDTH + i;
         return map[index];
+    }
+
+    destruct(map, i, j) {
+        let index = j * AREA_WIDTH + i;
+        map[index].destruct();
     }
 
     at_top(j) {
@@ -37,9 +55,9 @@ class Area {
 
     collides(i, j) {
         let index = (Math.floor(j) * AREA_WIDTH) + Math.floor(i);
-        let ground = this.maps.ground[index].collides();
-        let mask = this.maps.mask[index].collides();
-        let fringe = this.maps.fringe[index].collides();
+        let ground = this.maps.ground[index].collidable();
+        let mask = this.maps.mask[index].collidable();
+        let fringe = this.maps.fringe[index].collidable();
         return (ground || mask || fringe);
     }
 

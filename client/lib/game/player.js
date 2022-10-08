@@ -2,7 +2,6 @@ class Player {
     constructor(user_id, token = null) {
         this.user_id = user_id;
         this.token = token;
-        this.area = null;
         this.position = createVector(0.5, 0.5);
         this.to = this.position.copy();
         this.from = this.position.copy();
@@ -42,6 +41,29 @@ class Player {
         if (this.direction.heading() ==  -45) { temp = this.images.right }
         if (this.direction.heading() ==  180) { temp = this.images.left }
         this.image = tile_images[temp.tileset.name][temp.tileset.indices[0]];
+    }
+
+    interact(x, y, duration = null) {
+        let dist = this.position.dist(createVector(x, y));
+        if (dist < 3) {
+            // area.debug(x, y);
+            let mask_tile = area.get(area.maps.mask, x, y);
+            // Destructable interaction
+            if (mask_tile.destructable() != false) {
+                if (duration != null) {
+                    let percentage = duration / mask_tile.destructable().durability;
+                    if (percentage >= 1) {
+                        console.log('Mined!', 'Loot:', mask_tile.destructable().loot.join(', '));
+                        area.destruct(area.maps.mask, x, y);
+                    };
+                    return constrain(percentage, 0, 1);
+                } else {
+                    console.log('Started mining...');
+                    return 0;
+                }
+            }
+        }
+        return -1;
     }
 
     draw() {

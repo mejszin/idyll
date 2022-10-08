@@ -8,13 +8,18 @@ class Tile {
     }
 
     name() {
-        return tiles[this.id].name;
+        return this.exists() ? tiles[this.id].name : null;
+    }
+    
+    exists() {
+        return tiles[this.id] != undefined;
     }
 
     checkAnimState() {
         var tile = tiles[this.id];
         this.anim_cooldown -= 1;
         if (this.anim_cooldown <= 0) {
+            // if (tile.animation == undefined) { return } // Causes artifacts
             if (tile.animation.variance.length > 0) {
                 this.anim_cooldown = Math.floor(
                     random(
@@ -29,13 +34,24 @@ class Tile {
         }
     }
 
-    collides() {
+    collidable() {
         if (this.id == null) { return false }
-        return tiles[this.id].collide;
+        return tiles[this.id].interaction.collidable;
+    }
+
+    destructable() {
+        if (this.id == null) { return false }
+        if (tiles[this.id].interaction.destructable == null) { return false } 
+        return tiles[this.id].interaction.destructable;
+    }
+
+    destruct() {
+        this.id = null;
     }
 
     draw() {
         if (this.id == null) { return }
+        // if (tiles[this.id].tileset == undefined) { return } // Causes artifacts
         this.checkAnimState();
         let tileset = tiles[this.id].tileset.name;
         let indices = tiles[this.id].tileset.indices;

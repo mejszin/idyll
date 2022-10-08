@@ -15,6 +15,9 @@ var cursor_image;
 var tile_images = {};
 var tiles = {};
 
+var mouse_down_tile;
+var mouse_down_start;
+
 function keyboardInput() {
     if (!player.moving()) {
         let translation = createVector(0, 0);
@@ -32,27 +35,12 @@ function keyboardInput() {
     }
 }
 
-function mouseTile(scale = 1) {
-    return [
-        Math.floor(mouseX / TILESIZE) * scale,
-        Math.floor(mouseY / TILESIZE) * scale
-    ];
-}
-
-function mouseInput() {
-    image(cursor_image, ...mouseTile(TILESIZE), TILESIZE, TILESIZE);
-}
-
-function mouseClicked() {
-    let mask_tile = area.get(area.maps.mask, ...mouseTile());
-    console.log(mask_tile.name());
-}
-
 function setup() {
 	canvas = createCanvas(TILESIZE * AREA_WIDTH, TILESIZE * AREA_HEIGHT);
 	canvas.parent('game');
     frameRate(FRAME_RATE);
     noSmooth();
+    noStroke();
     angleMode(DEGREES);
 	document.addEventListener('contextmenu', event => event.preventDefault());
     cursor_image = tile_images['tiny_galaxy_interface'][128];
@@ -65,13 +53,23 @@ function setup() {
     });
 }
 
+function tintScreen(c) {
+    fill(c);
+    rect(0, 0, width, height);
+}
+
 function draw() {
-    background('#FFFFFF');
+    background('#000000');
     try {
         area.draw(area.maps.ground);
         area.draw(area.maps.mask);
         player.draw();
         area.draw(area.maps.fringe);
+    //  if (frameCount % 60 < 30) {
+    //      var sunset_tint = color(200, 50, 25, 40);
+    //      var night_tint = color(20, 20, 40, 120);
+    //      tintScreen(sunset_tint);
+    //  }
     } catch (e) {
         console.log(e);
     }
