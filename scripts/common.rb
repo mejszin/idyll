@@ -7,8 +7,15 @@ def alpha_square(diameter = 3)
     index = -1
     square = Array.new(diameter) { Array.new(diameter) { alpha_id(index += 1) } }
     return square
+    # square = alpha_square(5)
+    # print square.map { |row| row.map { |a| a + "\t" }.join + "\n" }.join
 end
 
-square = alpha_square(5)
-
-print square.map { |row| row.map { |a| a + "\t" }.join + "\n" }.join
+def safe_colorize(text, color)
+    begin
+        require 'colorize'
+        return text.colorize(color)
+    rescue LoadError
+        return text
+    end
+end

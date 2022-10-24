@@ -9,4 +9,4 @@ for tile in TILES do
 #   puts JSON.pretty_generate(body)
 end
 
-puts "Complete."
+puts safe_colorize("Complete.", :green)

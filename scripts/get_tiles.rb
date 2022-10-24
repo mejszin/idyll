@@ -4,7 +4,7 @@ require_relative './objects/tiles.rb'
 
 for tile in TILES do
     body = get_tile(tile.id)
-    puts JSON.pretty_generate(body)
+    puts body
 end
 
-puts "Complete."
+puts safe_colorize("Complete.", :green)

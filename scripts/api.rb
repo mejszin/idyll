@@ -1,6 +1,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require './common.rb'
 
 BASE_URL = 'https://idyll.machin.dev/api'
 
@@ -8,12 +9,7 @@ if File.file?('./api_token')
     API_TOKEN = File.read('./api_token')
 else
     message = "Can't find ./api_token file\nMake sure any scripts are executed from within the ./scripts directory"
-    begin
-        require 'colorize'
-        STDERR.puts message.colorize(:red)
-    rescue LoadError
-        STDERR.puts message
-    end
+    STDERR.puts safe_colorize(message, :red)
     exit
 end
 
