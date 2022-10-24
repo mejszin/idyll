@@ -4,14 +4,14 @@ require 'json'
 
 BASE_URL = 'https://idyll.machin.dev/api'
 
-if File.file?('./api_token')
+if File.file?('../api_token')
     API_TOKEN = File.read('./api_token')
 else
-    message = ['Can''t find ./api_token file', 'Make sure any scripts are executed from within the ./scripts directory']
+    message = "Can't find ./api_token file\nMake sure any scripts are executed from within the ./scripts directory"
     begin
         require 'colorize'
-        STDERR.puts message.map { |s| s.colorize(:red) }
-    rescue
+        STDERR.puts message.colorize(:red)
+    rescue LoadError
         STDERR.puts message
     end
     exit
