@@ -28,9 +28,9 @@ class Area {
         return map[index];
     }
 
-    destruct(map, i, j) {
+    destruct(map, i, j, becomes = null) {
         let index = j * AREA_WIDTH + i;
-        map[index].destruct();
+        map[index].destruct(becomes);
     }
 
     at_top(j) {

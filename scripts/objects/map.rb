@@ -44,7 +44,7 @@ class Map
     def to_json
         @map.map do |row| 
             row.map do |tile|
-                { :id => (tile == nil ? nil : tile.id) }
+                { :id => (tile == nil ? nil : tile) }
             end
         end
     end

@@ -3,5 +3,5 @@ client/node_modules
 client/lib/game/assets/*.png
 server/api/data/*.json
 server/api/node_modules
-api_token
+scripts/api_token
 notes.txt

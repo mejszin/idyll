@@ -8,7 +8,7 @@ class Area
         @id = id
         @name = name
         @links = {}
-        @ground = Map.new(Tiles::Water)
+        @ground = Map.new('water')
         @mask = Map.new
         @fringe = Map.new
     end

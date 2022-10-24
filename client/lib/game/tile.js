@@ -36,6 +36,7 @@ class Tile {
 
     collidable() {
         if (this.id == null) { return false }
+        if (tiles[this.id].interaction == null) { return false }
         return tiles[this.id].interaction.collidable;
     }
 
@@ -45,19 +46,19 @@ class Tile {
         return tiles[this.id].interaction.destructable;
     }
 
-    destruct() {
-        this.id = null;
+    destruct(becomes = null) {
+        this.id = becomes;
     }
 
     draw() {
         if (this.id == null) { return }
         // if (tiles[this.id].tileset == undefined) { return } // Causes artifacts
-        this.checkAnimState();
         let tileset = tiles[this.id].tileset.name;
         let indices = tiles[this.id].tileset.indices;
         if (indices.length == 1) {
             var tile_image = tile_images[tileset][indices[0]];
         } else {
+            this.checkAnimState();
             let index = this.anim_state == 0 ? indices[0] : indices[1];
             var tile_image = tile_images[tileset][index];
         }

@@ -54,7 +54,8 @@ class Player {
                     let percentage = duration / mask_tile.destructable().durability;
                     if (percentage >= 1) {
                         console.log('Mined!', 'Loot:', mask_tile.destructable().loot.join(', '));
-                        area.destruct(area.maps.mask, x, y);
+                        let becomes = mask_tile.destructable().becomes;
+                        area.destruct(area.maps.mask, x, y, becomes);
                     };
                     return constrain(percentage, 0, 1);
                 } else {
