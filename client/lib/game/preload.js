@@ -11,6 +11,7 @@ const TILESETS = [
     ['tiny_dungeon_monsters', 16],
     ['tiny_galaxy_interface', 16],
     ['tiny_16_b', 16],
+    ['tiny_16_original', 16],
     ['custom_trees', 16],
 ];
 
