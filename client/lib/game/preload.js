@@ -1,4 +1,5 @@
 // TODO: Remove hardcoded tileset names
+const { ipcRenderer } = require('electron');
 
 const TILESETS = [
 //  [tileset name, grid size],
@@ -13,16 +14,28 @@ const TILESETS = [
     ['custom_trees', 16],
 ];
 
+function terminal_log() {
+    let text = [];
+    for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] === 'object') {
+            text.push(JSON.stringify(arguments[i]));
+        } else {
+            text.push(arguments[i].toString());
+        }
+    }
+    ipcRenderer.send('renderer-log', text.join(' '));
+}
+
 function preload() {
     let params = getURLParams();
     player_id = params.id;
     player_token = params.token;
-    console.log('Loading tilesets...');
+    terminal_log('Loading tilesets...');
     TILESETS.forEach((data) => {
         var tileset_name = data[0];
         var grid_size = data[1];
         loadImage(`${GAME_SRC}/assets/${tileset_name}.png`, (tileset) => {
-            console.log(`Loaded tileset '${tileset_name}', (${tileset.width} × ${tileset.height}).`);
+            terminal_log(`Loaded tileset '${tileset_name}', (${tileset.width} × ${tileset.height}).`);
             tile_images[tileset_name] = [];
             for (let j = 0; j < tileset.height; j += grid_size) {
                 for (let i = 0; i < tileset.width; i += grid_size) {

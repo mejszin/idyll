@@ -73,7 +73,7 @@ function draw() {
     //      tintScreen(sunset_tint);
     //  }
     } catch (e) {
-        console.log(e);
+        terminal_log(e);
     }
     player.update();
     keyboardInput();

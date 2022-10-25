@@ -52,14 +52,14 @@ class Player {
                 if (duration != null) {
                     let percentage = duration / mask_tile.destructable().durability;
                     if (percentage >= 1) {
-                        console.log('Mined!', 'Loot:', mask_tile.destructable().loot.join(', '));
+                        terminal_log('Mined!', 'Loot:', mask_tile.destructable().loot.join(', '));
                         let becomes = mask_tile.destructable().becomes;
                         let connected = mask_tile.destructable().connected;
                         area.destruct(area.maps.mask, x, y, becomes, connected);
                     };
                     return constrain(percentage, 0, 1);
                 } else {
-                    console.log('Started mining...');
+                    terminal_log('Started mining...');
                     return 0;
                 }
             }

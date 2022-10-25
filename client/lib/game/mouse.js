@@ -11,7 +11,7 @@ function mouseTileEquals(x, y) {
 
 function mouseAbort() {
     mouse_down_start = -1;
-    console.log('Aborted interaction.');
+    terminal_log('Aborted interaction.');
 }
 
 function mouseInput() {
