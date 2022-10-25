@@ -5,8 +5,6 @@ const FRAME_RATE = 20;
 const AREA_WIDTH = 20 // 32;
 const AREA_HEIGHT = 16 // 24;
 
-var game_staged = false;
-
 var player_token;
 var player_id;
 
@@ -63,7 +61,6 @@ function tintScreen(c) {
 
 function draw() {
     background('#000000');
-    game_staged = millis() > 1000;
     try {
         area.draw(area.maps.ground);
         area.draw(area.maps.mask);

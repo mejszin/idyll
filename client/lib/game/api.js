@@ -48,6 +48,7 @@ function getTile(token = player_token, id, callback) {
 }
 
 function cacheTile(id) {
+    if (id in tiles) { return }
     tiles[id] = {};
     getTile(player_token, id, (response) => {
         if (response != -1) {

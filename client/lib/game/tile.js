@@ -53,12 +53,8 @@ class Tile {
 
     draw() {
         if (this.id == null) { return }
-        // if (tiles[this.id].tileset == undefined) { return } // Causes artifacts
-        if (tiles[this.id] == undefined || tiles[this.id].tileset == null) { 
-            if (game_staged) {
-                terminal_log('Tileset not found for', this.id);
-                cacheTile(this.id);
-            }
+        if (tiles[this.id] == undefined || tiles[this.id].tileset == null) {
+            cacheTile(this.id);
             return
         }
         let tileset = tiles[this.id].tileset.name;
