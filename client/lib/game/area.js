@@ -10,6 +10,10 @@ class Area {
         };
     }
 
+    cartesian_to_index(i, j) {
+        return j * AREA_WIDTH + i;
+    }
+
     debug(i, j) {
         let mask_tile = area.get(area.maps.mask, i, j);
         let ground_tile = area.get(area.maps.ground, i, j);
@@ -24,29 +28,39 @@ class Area {
     }
 
     get(map, i, j) {
-        let index = j * AREA_WIDTH + i;
-        return map[index];
+        return map[this.cartesian_to_index(i, j)];
     }
 
-    destruct(map, i, j, becomes = null) {
-        let index = j * AREA_WIDTH + i;
-        map[index].destruct(becomes);
+    destruct(map, i, j, becomes = null, connected = null) {
+        map[this.cartesian_to_index(i, j)].destruct(becomes);
+        if (connected != null) {
+            if (connected.mask != null) {
+                connected.mask.forEach(relative => {
+                    area.maps.mask[this.cartesian_to_index(i + relative[0], j + relative[1])].destruct();
+                })
+            }
+            if (connected.fringe != null) {
+                connected.fringe.forEach(relative => {
+                    area.maps.fringe[this.cartesian_to_index(i + relative[0], j + relative[1])].destruct();
+                })
+            }
+        }
     }
 
     at_top(j) {
-        return (j < 0);
+        return (j < 0.25);
     }
 
     at_left(i) {
-        return (i < 0);
+        return (i < 0.25);
     }
 
     at_bottom(j) {
-        return (j > AREA_HEIGHT - 1);
+        return (j > AREA_HEIGHT - 0.25);
     }
 
     at_right(i) {
-        return (i > AREA_WIDTH - 1);
+        return (i > AREA_WIDTH - 0.25);
     }
 
     edge(i, j) {

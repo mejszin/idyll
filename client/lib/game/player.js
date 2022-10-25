@@ -28,19 +28,18 @@ class Player {
     }
 
     checkImage() {
-        // -135  -90  -45
-        //  180         0
-        //  135   90   45
-        var temp;
-        if (this.direction.heading() ==    0) { temp = this.images.right }
-        if (this.direction.heading() ==   45) { temp = this.images.right }
-        if (this.direction.heading() ==   90) { temp = this.images.down }
-        if (this.direction.heading() ==  135) { temp = this.images.left }
-        if (this.direction.heading() == -135) { temp = this.images.left }
-        if (this.direction.heading() ==  -90) { temp = this.images.up }
-        if (this.direction.heading() ==  -45) { temp = this.images.right }
-        if (this.direction.heading() ==  180) { temp = this.images.left }
-        this.image = tile_images[temp.tileset.name][temp.tileset.indices[0]];
+        switch (this.direction.heading()) {
+            case    0: var img = this.images.right; break; // -135  -90  -45
+            case   45: var img = this.images.right; break; //  180         0
+            case   90: var img = this.images.down ; break; //  135   90   45
+            case  135: var img = this.images.left ; break;
+            case -135: var img = this.images.left ; break;
+            case  -90: var img = this.images.up   ; break;
+            case  -45: var img = this.images.right; break;
+            case  180: var img = this.images.left ; break;
+            default  : var img = this.images.down ;
+        }
+        this.image = tile_images[img.tileset.name][img.tileset.indices[0]];
     }
 
     interact(x, y, duration = null) {
@@ -55,7 +54,8 @@ class Player {
                     if (percentage >= 1) {
                         console.log('Mined!', 'Loot:', mask_tile.destructable().loot.join(', '));
                         let becomes = mask_tile.destructable().becomes;
-                        area.destruct(area.maps.mask, x, y, becomes);
+                        let connected = mask_tile.destructable().connected;
+                        area.destruct(area.maps.mask, x, y, becomes, connected);
                     };
                     return constrain(percentage, 0, 1);
                 } else {
@@ -97,10 +97,11 @@ class Player {
         if (area_id != undefined) {
             getArea(player_token, area_id, (api_area) => {
                 area = new Area(api_area);
-                if (link_id == 'N') { this.reposition(this.position.x, AREA_HEIGHT - 1) }
-                if (link_id == 'E') { this.reposition(0              , this.position.y) }
-                if (link_id == 'S') { this.reposition(this.position.x, 0              ) }
-                if (link_id == 'W') { this.reposition(AREA_WIDTH - 1 , this.position.y) }
+                let offset = 0.5;
+                if (link_id == 'N') { this.reposition(this.position.x    , AREA_HEIGHT - offset) }
+                if (link_id == 'E') { this.reposition(offset             , this.position.y     ) }
+                if (link_id == 'S') { this.reposition(this.position.x    , offset              ) }
+                if (link_id == 'W') { this.reposition(AREA_WIDTH - offset, this.position.y     ) }
                 this.goto_lock = false;
             });
             return true;

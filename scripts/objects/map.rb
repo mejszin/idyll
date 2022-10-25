@@ -8,8 +8,10 @@ class Map
         fill(initial)
     end
 
-    def set(i, j, tile)
+    def set(tile, i = nil, j = nil)
+        i, j = rand(MAP_WIDTH), rand(MAP_HEIGHT) if (i == nil || j == nil)
         @map[j][i] = tile
+        return [i, j]
     end
 
     def choose(arr)

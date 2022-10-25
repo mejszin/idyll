@@ -3,12 +3,14 @@ require_relative './tile.rb'
 n, t, i, c, ad, av = :name, :tileset, :indices, :collidable, :anim_duration, :anim_variance
 
 s = {
-    :t => 'test_tileset',
+    :t  => 'test_tileset',
     :dw => 'tiny_dungeon_world',
     :dm => 'tiny_dungeon_monsters',
     :gw => 'tiny_galaxy_world',
     :gs => 'tiny_galaxy_space',
     :gf => 'tiny_galaxy_fx',
+    :tb => 'tiny_16_b',
+    :ct => 'custom_trees',
 }
 
 TILES = [
@@ -67,12 +69,20 @@ TILES = [
     Tile.new('star_a'            , { n => 'Star'              , t => s[:gs], i => [6, 7], c => true }),
     Tile.new('star_b'            , { n => 'Star'              , t => s[:gs], i => [8, 9], c => true }),
     Tile.new('bubble'            , { n => 'Bubble'            , t => s[:gf], i => [112, 113], c => true, ad => 16, av => [0.8, 1.1] }),
+    Tile.new('stones'            , { n => 'Stones'            , t => s[:tb], i => [17], c => true }),
+    Tile.new('tree_a'            , { n => 'Tree'              , t => s[:ct], i => [2], c => true }),
+    Tile.new('tree_b'            , { n => 'Tree'              , t => s[:ct], i => [0], c => false }),
 ]
 
 def get_tile_by_id(id); TILES.select { |tile| tile.id == id }.first; end
 
 get_tile_by_id('stone_boulder').destructable = {
     :durability => 2000,
+    :loot => ['stone'],
+}
+
+get_tile_by_id('stones').destructable = {
+    :durability => 1200,
     :loot => ['stone'],
 }
 
@@ -90,4 +100,12 @@ get_tile_by_id('shrub_b').destructable = {
 get_tile_by_id('torch').destructable = {
     :durability => 1200,
     :loot => ['torch'],
+}
+
+get_tile_by_id('tree_a').destructable = {
+    :durability => 1200,
+    :loot => ['wood'],
+    :connected => {
+        :fringe => [[0, -1]]
+    }
 }

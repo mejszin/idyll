@@ -1,3 +1,5 @@
+// TODO: Remove hardcoded tileset names
+
 const TILESETS = [
 //  [tileset name, grid size],
     ['test_tileset', 32],
@@ -7,6 +9,8 @@ const TILESETS = [
     ['tiny_galaxy_fx', 16],
     ['tiny_dungeon_monsters', 16],
     ['tiny_galaxy_interface', 16],
+    ['tiny_16_b', 16],
+    ['custom_trees', 16],
 ];
 
 function preload() {
