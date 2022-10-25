@@ -65,6 +65,8 @@ function draw() {
         area.draw(area.maps.mask);
         player.draw();
         area.draw(area.maps.fringe);
+        fill('#FFFFFF');
+        text(area.id, 16, 16);
     //  if (frameCount % 60 < 30) {
     //      var sunset_tint = color(200, 50, 25, 40);
     //      var night_tint = color(20, 20, 40, 120);

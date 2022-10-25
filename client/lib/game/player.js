@@ -98,9 +98,9 @@ class Player {
             getArea(player_token, area_id, (api_area) => {
                 area = new Area(api_area);
                 if (link_id == 'N') { this.reposition(this.position.x, AREA_HEIGHT - 1) }
-                if (link_id == 'E') { this.reposition(AREA_WIDTH - 1 , this.position.y) }
+                if (link_id == 'E') { this.reposition(0              , this.position.y) }
                 if (link_id == 'S') { this.reposition(this.position.x, 0              ) }
-                if (link_id == 'W') { this.reposition(0              , this.position.y) }
+                if (link_id == 'W') { this.reposition(AREA_WIDTH - 1 , this.position.y) }
                 this.goto_lock = false;
             });
             return true;
