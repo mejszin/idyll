@@ -15,6 +15,7 @@ const TILESETS = [
 ];
 
 function terminal_log() {
+    console.log(...arguments);
     let text = [];
     for (var i = 0; i < arguments.length; i++) {
         if (typeof arguments[i] === 'object') {

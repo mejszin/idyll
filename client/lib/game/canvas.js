@@ -5,6 +5,8 @@ const FRAME_RATE = 20;
 const AREA_WIDTH = 20 // 32;
 const AREA_HEIGHT = 16 // 24;
 
+var game_staged = false;
+
 var player_token;
 var player_id;
 
@@ -54,24 +56,19 @@ function setup() {
 }
 
 function tintScreen(c) {
+    // var night_tint = color(20, 20, 40, 120);
     fill(c);
     rect(0, 0, width, height);
 }
 
 function draw() {
     background('#000000');
+    game_staged = millis() > 1000;
     try {
         area.draw(area.maps.ground);
         area.draw(area.maps.mask);
         player.draw();
         area.draw(area.maps.fringe);
-        fill('#FFFFFF');
-        text(area.id, 16, 16);
-    //  if (frameCount % 60 < 30) {
-    //      var sunset_tint = color(200, 50, 25, 40);
-    //      var night_tint = color(20, 20, 40, 120);
-    //      tintScreen(sunset_tint);
-    //  }
     } catch (e) {
         terminal_log(e);
     }

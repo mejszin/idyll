@@ -36,12 +36,14 @@ class Area {
         if (connected != null) {
             if (connected.mask != null) {
                 connected.mask.forEach(relative => {
-                    area.maps.mask[this.cartesian_to_index(i + relative[0], j + relative[1])].destruct();
+                    let index = this.cartesian_to_index(i + relative[0], j + relative[1]);
+                    if (index > -1 && index < AREA_WIDTH * AREA_HEIGHT) { area.maps.mask[index].destruct() };
                 })
             }
             if (connected.fringe != null) {
                 connected.fringe.forEach(relative => {
-                    area.maps.fringe[this.cartesian_to_index(i + relative[0], j + relative[1])].destruct();
+                    let index = this.cartesian_to_index(i + relative[0], j + relative[1]);
+                    if (index > -1 && index < AREA_WIDTH * AREA_HEIGHT) { area.maps.fringe[index].destruct() };
                 })
             }
         }
@@ -82,16 +84,7 @@ class Area {
                 let id = api_map[j][i].id;;
                 map.push(new Tile(id, createVector(i, j)));
                 if ((id !== null) && !(id in tiles)) {
-                    tiles[id] = {};
-                    getTile(player_token, id, (response) => {
-                        if (response != -1) {
-                            tiles[id] = response;
-                        } else {
-                            getTile(player_token, 'test', (response) => {
-                                tiles[id] = response;
-                            })
-                        }
-                    })
+                    cacheTile(id);
                 }
             }
         }

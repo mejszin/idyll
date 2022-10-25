@@ -13,6 +13,8 @@ areas = square.flatten.map do |map_id|
     area.links = square_neighbors(square, map_id)
     area.ground.fill('dirt_a')
     area.ground.fill(DIRT_TILES - ['dirt_a'], 0.5)
+    area.mask.fill('torch', 0.05)
+    area.mask.fill('shrub_b', 0.05)
     area.mask.fill('stone_boulder', 0.1)
     area.mask.fill('stones', 0.1)
     (0...4).each do

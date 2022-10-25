@@ -47,12 +47,20 @@ class Tile {
     }
 
     destruct(becomes = null) {
+        terminal_log('Destructing:', this.id, 'Becomes:', becomes);
         this.id = becomes;
     }
 
     draw() {
         if (this.id == null) { return }
         // if (tiles[this.id].tileset == undefined) { return } // Causes artifacts
+        if (tiles[this.id] == undefined || tiles[this.id].tileset == null) { 
+            if (game_staged) {
+                terminal_log('Tileset not found for', this.id);
+                cacheTile(this.id);
+            }
+            return
+        }
         let tileset = tiles[this.id].tileset.name;
         let indices = tiles[this.id].tileset.indices;
         if (indices.length == 1) {
