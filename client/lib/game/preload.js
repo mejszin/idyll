@@ -1,5 +1,4 @@
 // TODO: Remove hardcoded tileset names
-const { ipcRenderer } = require('electron');
 
 const TILESETS = [
 //  [tileset name, grid size],
@@ -14,6 +13,8 @@ const TILESETS = [
     ['tiny_16_original', 16],
     ['custom_trees', 16],
 ];
+
+const { ipcRenderer } = require('electron');
 
 function terminal_log() {
     console.log(...arguments);

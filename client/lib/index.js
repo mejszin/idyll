@@ -15,6 +15,7 @@ var config = ini.parse(fs.readFileSync('./data/config.ini', 'utf-8'));
 var mainWindow = null;
 
 const createWindow = () => {
+    console.log('abc' + 123 + 'def')
     mainWindow = new BrowserWindow({
         title: title,
         width: width,
