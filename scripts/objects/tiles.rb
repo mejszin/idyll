@@ -10,6 +10,7 @@ s = {
     :gs => 'tiny_galaxy_space',
     :gf => 'tiny_galaxy_fx',
     :tb => 'tiny_16_b',
+    :to => 'tiny_16_original',
     :ct => 'custom_trees',
 }
 
@@ -72,39 +73,51 @@ TILES = [
     Tile.new('stones'            , { n => 'Stones'            , t => s[:tb], i => [17], c => true }),
     Tile.new('tree_a'            , { n => 'Tree'              , t => s[:ct], i => [2], c => true }),
     Tile.new('tree_b'            , { n => 'Tree'              , t => s[:ct], i => [0], c => false }),
+    Tile.new('horizontal_fence'  , { n => 'Fence'             , t => s[:to], i => [51], c => true }),
+    Tile.new('vertical_fence'    , { n => 'Fence'             , t => s[:to], i => [59], c => true }),
+    Tile.new('pillar_a'          , { n => 'Pillar'            , t => s[:to], i => [99], c => true }),
+    Tile.new('pillar_b'          , { n => 'Pillar'            , t => s[:to], i => [91], c => false }),
 ]
 
 def get_tile_by_id(id); TILES.select { |tile| tile.id == id }.first; end
 
 get_tile_by_id('stone_boulder').destructable = {
     :durability => 2000,
-    :loot => ['stone'],
+    :loot => [['stone', [3, 4, 5]]],
 }
 
 get_tile_by_id('stones').destructable = {
     :durability => 1200,
-    :loot => ['stone'],
+    :loot => [['stone', [1, 2, 3]]],
 }
 
 get_tile_by_id('shrub_a').destructable = {
     :durability => 2000,
-    :loot => ['biomass'],
+    :loot => [['biomass', [1, 2, 3]]],
 }
 
 get_tile_by_id('shrub_b').destructable = {
     :durability => 400,
-    :loot => ['berry'],
+    :loot => [['berry', [1, 2, 3]]],
     :becomes => 'shrub_a',
 }
 
 get_tile_by_id('torch').destructable = {
     :durability => 1200,
-    :loot => ['torch'],
+    :loot => [['torch', [1]]],
 }
 
 get_tile_by_id('tree_a').destructable = {
     :durability => 1200,
-    :loot => ['wood'],
+    :loot => [['wood', [3, 4, 5]], ['biomass', [1, 2, 3]]],
+    :connected => {
+        :fringe => [[0, -1]]
+    }
+}
+
+get_tile_by_id('pillar_a').destructable = {
+    :durability => 3600,
+    :loot => [['stone', [3, 4, 5]]],
     :connected => {
         :fringe => [[0, -1]]
     }

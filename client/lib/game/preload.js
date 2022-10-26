@@ -28,6 +28,14 @@ function terminal_log() {
     ipcRenderer.send('renderer-log', text.join(' '));
 }
 
+Array.prototype.random = function () {
+    return this[
+        Math.floor(
+            (Math.random() * this.length)
+        )
+    ];
+}
+
 function preload() {
     let params = getURLParams();
     player_id = params.id;

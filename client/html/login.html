@@ -67,6 +67,17 @@
         })
       }
     }
+
+    function autoLogin() {
+      var fs = require("fs");
+      fs.readFile("./login.txt", { encoding: 'utf8', flag: 'r' }, (err, data) => {
+        if (!err) {
+          login(...data.split("\n"))
+        }
+      });
+    }
+
+    autoLogin();
   </script>
 
   <body>

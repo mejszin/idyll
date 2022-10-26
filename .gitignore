@@ -1,6 +1,7 @@
 client/Rakefile
 client/node_modules
 client/lib/game/assets/*.png
+client/login.txt
 server/api/data/*.json
 server/api/node_modules
 scripts/api_token

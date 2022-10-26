@@ -42,6 +42,15 @@ class Player {
         this.image = tile_images[img.tileset.name][img.tileset.indices[0]];
     }
 
+    calculate_loot(loot_table) {
+        let calculated = {}
+        loot_table.forEach(loot => {
+            let [id, quantities] = loot;
+            calculated[id] = quantities.random();
+        })
+        return calculated;
+    }
+
     interact(x, y, duration = null) {
         let dist = this.position.dist(createVector(x, y));
         if (dist < 3) {
@@ -52,7 +61,7 @@ class Player {
                 if (duration != null) {
                     let percentage = duration / mask_tile.destructable().durability;
                     if (percentage >= 1) {
-                        terminal_log('Mined!', 'Loot:', mask_tile.destructable().loot.join(', '));
+                        terminal_log('Mined!', 'Loot:', this.calculate_loot(mask_tile.destructable().loot));
                         let becomes = mask_tile.destructable().becomes;
                         let connected = mask_tile.destructable().connected;
                         area.destruct(area.maps.mask, x, y, becomes, connected);
