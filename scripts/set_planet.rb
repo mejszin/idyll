@@ -1,8 +1,3 @@
-puts 'abc' + 123 + 'def'
-
-exit
-
-
 require_relative './api.rb'
 require_relative './objects/area.rb'
 require_relative './objects/groups.rb'

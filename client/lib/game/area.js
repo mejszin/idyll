@@ -71,9 +71,9 @@ class Area {
 
     collides(i, j) {
         let index = (Math.floor(j) * AREA_WIDTH) + Math.floor(i);
-        let ground = this.maps.ground[index].collidable();
-        let mask = this.maps.mask[index].collidable();
-        let fringe = this.maps.fringe[index].collidable();
+        let ground = this.maps.ground[index] == undefined ? false : this.maps.ground[index].collidable();
+        let mask = this.maps.mask[index] == undefined ? false : this.maps.mask[index].collidable();
+        let fringe = this.maps.fringe[index] == undefined ? false : this.maps.fringe[index].collidable();
         return (ground || mask || fringe);
     }
 

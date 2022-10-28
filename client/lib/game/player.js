@@ -131,6 +131,7 @@ class Player {
                 this.lerp_step = 0;
                 this.from = this.position.copy();
                 this.to = createVector(x, y);
+                setPosition(player_token, area.id, x, y);
                 this.direction = this.to.copy().sub(this.from).normalize();
                 let now = new Date();
                 let seconds = (now.getTime() - last_post_time.getTime()) / 1000;

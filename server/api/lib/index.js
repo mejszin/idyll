@@ -16,7 +16,9 @@ const fs = require('fs');
 const user_data_path = './data/users.json';
 var user_data = fs.existsSync(user_data_path) ? JSON.parse(fs.readFileSync(user_data_path)) : {};
 const game_data_path = './data/game.json';
-var game_data = fs.existsSync(user_data_path) ? JSON.parse(fs.readFileSync(game_data_path)) : {};
+var game_data = fs.existsSync(game_data_path) ? JSON.parse(fs.readFileSync(game_data_path)) : {};
+const asset_data_path = './data/assets.json';
+var asset_data = fs.existsSync(asset_data_path) ? JSON.parse(fs.readFileSync(asset_data_path)) : {};
 
 const bcrypt = require('bcrypt');
 
@@ -41,6 +43,10 @@ methods.writeGame = () => {
     fs.writeFileSync(game_data_path, JSON.stringify(game_data));
 }
 
+methods.writeAssets = () => {
+    fs.writeFileSync(asset_data_path, JSON.stringify(asset_data));
+}
+
 methods.isToken = (token) => {
     return (token in user_data);
 }
@@ -58,6 +64,23 @@ methods.newSaltHash = (password) => {
             });
         })
     });
+};
+
+methods.getAssets = (token) => {
+    if (token in user_data) {
+        if (user_id == null) {
+            return asset_data;
+        } else {
+            return undefined;
+        }
+    } else {
+        return undefined;
+    }
+};
+
+methods.setAssets = (token, assets) => {
+    asset_data = assets;
+    return true;
 };
 
 methods.createUser = async (username, password) => {
@@ -223,6 +246,38 @@ app.get('/user/new', async (req, res) => {
     } else {
         // Bad request
         res.status(400).send();
+    }
+});
+
+app.post('/game/assets/set', (req, res) => {
+    console.log('/game/assets/set', req.query);
+    const { token } = req.query;
+    const data = req.body;
+    if (methods.isToken(token)) {
+        // Success
+        methods.setAssets(id, data);
+        methods.writeAssets();
+        res.status(200).send();
+    } else {
+        // Unauthorized
+        res.status(401).send();
+    }
+});
+
+app.get('/game/assets/get', (req, res) => {
+    console.log('/game/assets/get', req.query);
+    const { token } = req.query;
+    if (methods.isToken(token)) {
+        // Success
+        let assets = methods.getAssets(token);
+        if (assets !== undefined) {
+            res.status(200).send(assets);
+        } else {
+            res.status(204).send();
+        }
+    } else {
+        // Unauthorized
+        res.status(401).send();
     }
 });
 

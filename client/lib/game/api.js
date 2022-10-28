@@ -9,12 +9,12 @@ function getPosition(token = player_token, id = player_id, callback) {
     });
 }
 
-function setPosition(token = player_token, area, vector) {
-    var url = `${BASE_URL}/game/player/position/set?token=${token}&area=${area}&x=${vector.x}&y=${vector.y}`;
-    httpGet(url, 'json', false, function(response) {
-        terminal_log('/game/player/position/set', response);
-    });
-}
+// function setPosition(token = player_token, area, vector) {
+//     var url = `${BASE_URL}/game/player/position/set?token=${token}&area=${area}&x=${vector.x}&y=${vector.y}`;
+//     httpGet(url, 'json', false, function(response) {
+//         terminal_log('/game/player/position/set', response);
+//     });
+// }
 
 function getArea(token = player_token, id, callback) {
     if (api_lock == false) {
@@ -33,6 +33,13 @@ function getPlayer(token = player_token, id = player_id, callback) {
     httpGet(url, 'json', false, function(response) {
         terminal_log('/game/player/get', response);
         callback(response);
+    });
+}
+
+function setPosition(token = player_token, area, x, y) {
+    var url = `${BASE_URL}/game/player/position/set?token=${token}&area=${area}&x=${x}&y=${y}`;
+    httpGet(url, 'json', false, function(response) {
+        terminal_log('/game/player/position/set', area, x, y, response);
     });
 }
 

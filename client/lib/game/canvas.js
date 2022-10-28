@@ -1,7 +1,7 @@
 const GAME_SRC = '../lib/game';
 
 const TILESIZE = 32;
-const FRAME_RATE = 20;
+const FRAME_RATE = 16;
 const AREA_WIDTH = 20 // 32;
 const AREA_HEIGHT = 16 // 24;
 
@@ -21,10 +21,10 @@ var mouse_down_start;
 function keyboardInput() {
     if (!player.moving()) {
         let translation = createVector(0, 0);
-        let step = 0.25;
-        if (keyIsDown(unchar('W')) || keyIsDown(UP_ARROW)   ) { translation.add(createVector(0, -step)) }
-        if (keyIsDown(unchar('A')) || keyIsDown(LEFT_ARROW) ) { translation.add(createVector(-step, 0)) }
-        if (keyIsDown(unchar('S')) || keyIsDown(DOWN_ARROW) ) { translation.add(createVector(0, step)) }
+        let step = 0.5;
+        if (keyIsDown(unchar('W')) || keyIsDown(UP_ARROW   )) { translation.add(createVector(0, -step)) }
+        if (keyIsDown(unchar('A')) || keyIsDown(LEFT_ARROW )) { translation.add(createVector(-step, 0)) }
+        if (keyIsDown(unchar('S')) || keyIsDown(DOWN_ARROW )) { translation.add(createVector(0, step)) }
         if (keyIsDown(unchar('D')) || keyIsDown(RIGHT_ARROW)) { translation.add(createVector(step, 0)) }
         if (translation.mag() > 0) {
             player.move(
@@ -46,9 +46,10 @@ function setup() {
     cursor_image = tile_images['tiny_galaxy_interface'][128];
     player = new Player(player_id, player_token);
     getPlayer(player_token, player_id, (api_player) => {
-        let area_id = api_player.position[0];
+        let [area_id, x, y] = api_player.position;
         getArea(player_token, area_id, (api_area) => {
             area = new Area(api_area);
+            player.reposition(parseFloat(x), parseFloat(y));
         });
     });
 }

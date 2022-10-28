@@ -50,3 +50,7 @@ end
 def list_tile()
     get('/game/tile/list', { :token => API_TOKEN })
 end
+
+def set_assets(assets)
+    post('/game/assets/set', { :token => API_TOKEN }, ASSETS)
+end
