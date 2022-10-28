@@ -66,12 +66,8 @@ methods.newSaltHash = (password) => {
     });
 };
 
-methods.getAssets = (token) => {
-    if (token in user_data) {
-        return asset_data;
-    } else {
-        return undefined;
-    }
+methods.getAssets = () => {
+    return asset_data;
 };
 
 methods.setAssets = (token, assets) => {
@@ -262,19 +258,9 @@ app.post('/game/assets/set', (req, res) => {
 
 app.get('/game/assets/get', (req, res) => {
     console.log('/game/assets/get', req.query);
-    const { token } = req.query;
-    if (methods.isToken(token)) {
-        // Success
-        let assets = methods.getAssets(token);
-        if (assets !== undefined) {
-            res.status(200).send(assets);
-        } else {
-            res.status(204).send();
-        }
-    } else {
-        // Unauthorized
-        res.status(401).send();
-    }
+    // Success
+    let assets = methods.getAssets();
+    res.status(200).send(assets);
 });
 
 app.post('/game/tile/set', (req, res) => {
