@@ -1,1 +1,1 @@
-![./server/idyll_large.png](idyll logo)
+![idyll logo](./server/assets/idyll_large.png)

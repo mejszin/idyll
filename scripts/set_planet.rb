@@ -34,6 +34,7 @@ areas.sample(1).first.tap do |area|
     area.ground.rect('metal_floor_marker', 3, 3, 11, 11)
     area.ground.rect(METAL_FLOOR_TILES, 4, 4, 10, 10)
     area.ground.rect('metal_grate', 6, 6, 8, 8)
+    area.mask.set('computer', 5, 4)
 end
 
 areas.sample(1).first.tap do |area|

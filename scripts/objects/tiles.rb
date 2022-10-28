@@ -12,6 +12,7 @@ s = {
     :tb => 'tiny_16_b',
     :to => 'tiny_16_original',
     :ct => 'custom_trees',
+    :mc => 'computer',
 }
 
 TILES = [
@@ -77,6 +78,7 @@ TILES = [
     Tile.new('vertical_fence'    , { n => 'Fence'             , t => s[:to], i => [59], c => true }),
     Tile.new('pillar_a'          , { n => 'Pillar'            , t => s[:to], i => [99], c => true }),
     Tile.new('pillar_b'          , { n => 'Pillar'            , t => s[:to], i => [91], c => false }),
+    Tile.new('computer'          , { n => 'Computer'          , t => s[:mc], i => [0, 1], c => true }),
 ]
 
 def get_tile_by_id(id); TILES.select { |tile| tile.id == id }.first; end
