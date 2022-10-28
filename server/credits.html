@@ -21,6 +21,22 @@
     }
 </style>
 
+<script>
+    function getAssets() {
+        return new Promise(resolve => {
+            (async () => {
+                var url = `/api/game/assets/get`;
+                fetch(url).then(response => response.status == 200 ? response.json() : []).then(data => {
+                    console.log('/game/assets/get', data);
+                    resolve(data);
+                });
+            })()
+        });
+    }
+
+    getAssets();
+</script>
+
 <body>
     <span class="tag is-danger is-light is-medium mb-4"><b style="font-weight: 600">Note:&nbsp;</b>This webpage is in development.</span>
     <div class="content">
@@ -29,10 +45,10 @@
     </div>
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li class="is-active"><a href="/" aria-current="page">Homepage</a></li>
+            <li><a href="/">Homepage</a></li>
             <li><a href="/downloads.html">Downloads</a></li>
             <li><a href="/changelog.html">Changelog</a></li>
-            <li><a href="/credits.html">Credits</a></li>
+            <li class="is-active"><a href="/credits.html" aria-current="page">Credits</a></li>
         </ul>
     </nav>
     <div class="content">
