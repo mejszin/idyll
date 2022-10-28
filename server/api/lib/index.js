@@ -255,7 +255,7 @@ app.post('/game/assets/set', (req, res) => {
     const data = req.body;
     if (methods.isToken(token)) {
         // Success
-        methods.setAssets(id, data);
+        methods.setAssets(token, data);
         methods.writeAssets();
         res.status(200).send();
     } else {
