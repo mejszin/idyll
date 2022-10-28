@@ -36,6 +36,8 @@ ASSETS = [
     }
 ]
 
-puts "Setting assets..."
-set_assets(ASSETS)
-puts safe_colorize("Complete.", :green)
+# puts "Setting assets..."
+# set_assets(ASSETS)
+# puts safe_colorize("Complete.", :green)
+
+puts get_assets()

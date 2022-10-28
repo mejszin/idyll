@@ -68,11 +68,7 @@ methods.newSaltHash = (password) => {
 
 methods.getAssets = (token) => {
     if (token in user_data) {
-        if (user_id == null) {
-            return asset_data;
-        } else {
-            return undefined;
-        }
+        return asset_data;
     } else {
         return undefined;
     }

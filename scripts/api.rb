@@ -44,7 +44,7 @@ def set_tile(tile)
 end
 
 def get_tile(tile_id)
-    body = get('/game/tile/get', { :token => API_TOKEN, :id => tile_id })
+    get('/game/tile/get', { :token => API_TOKEN, :id => tile_id })
 end
 
 def list_tile()
@@ -53,4 +53,8 @@ end
 
 def set_assets(assets)
     post('/game/assets/set', { :token => API_TOKEN }, ASSETS)
+end
+
+def get_assets()
+    get('/game/assets/get', { :token => API_TOKEN })
 end
