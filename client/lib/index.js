@@ -19,7 +19,6 @@ const createWindow = () => {
         title: title,
         width: width,
         height: height,
-        useContentSize: true,
     //  icon: path.join(__dirname, "../data/images/carton.png"),
         webPreferences: {
             nodeIntegration: true,
@@ -39,7 +38,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
     createWindow();
-    mainWindow.setSize(width, height);
+    mainWindow.setContentSize(width - 1, height - 1);
 })
 
 app.on('window-all-closed', () => {

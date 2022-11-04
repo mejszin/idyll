@@ -27,7 +27,7 @@ ASSETS = [
     {
         :name => "Sharm",
         :link => "https://sharm.itch.io/tiny16",
-        :license => "CC-BY-3.0 (no DRM)",
+        :license => "CC-BY 3.0 (no DRM)",
         :tilesets => [
             ["tiny_16_original", 16],
             ["tiny_16_b", 16],
@@ -39,9 +39,19 @@ ASSETS = [
         :link => "https://murphysdad.itch.io/",
         :license => "CC0 1.0",
         :tilesets => [
-            ["computer", "16"],
+            ["computer", 16],
         ]
     },
+#   {
+#       :name => "Emcee Flesher",
+#       :link => "https://opengameart.org/users/emcee-flesher",
+#       :license => "CC-BY 4.0",
+#   },
+#   {
+#       :name => "Viktor Hanh",
+#       :link => "mailto://Viktor.Hahn@web.de",
+#       :license => "CC-BY 4.0",
+#   },
 ]
 
 puts "Setting assets..."
