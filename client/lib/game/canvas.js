@@ -1,5 +1,3 @@
-const GAME_SRC = '../lib/game';
-
 const TILESIZE = 32;
 const FRAME_RATE = 16;
 const AREA_WIDTH = 20 // 32;
