@@ -1,3 +1,3 @@
 require_relative './api.rb'
 
-puts find_user('Louis')
+puts find_player('Louis')
