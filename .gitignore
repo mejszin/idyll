@@ -8,4 +8,5 @@ scripts/api_token
 discord/discord_client_id.key
 discord/discord_token.key
 discord/invite_link.txt
+discord/Gemfile.lock
 notes.txt
