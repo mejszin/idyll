@@ -31,6 +31,10 @@ def get(route, headers = {})
     return res.code == '200' ? JSON.parse(res.body) : {}
 end
 
+def find_user(username)
+    get('/game/user/find', { :token => API_TOKEN, :id => area_id })
+end
+
 def set_area(area)
     post('/game/area/set', { :token => API_TOKEN, :id => area.id }, area.to_json)
 end

@@ -116,20 +116,6 @@ methods.getUser = (token, user_id = null) => {
     }
 }
 
-methods.getUserByUsername = (username) => {
-    if (token in user_data) {
-        var user = null;
-        Object.keys(user_data).forEach(function(token) {
-            if (username == user_data[token].username) {
-                user = user_data[token];
-            };
-        })
-        return user;
-    } else {
-        return undefined;
-    }
-}
-
 methods.usernameExists = (username) => {
     var exists = false;
     Object.keys(user_data).forEach(function(token) {
@@ -152,6 +138,16 @@ methods.findCredentials = async (username, password) => {
         });
     });
 };
+
+methods.getUserIdByUsername = (username) => {
+    var id = null;
+    Object.keys(game_data.players).forEach(function(user_id) {
+        if (username == game_data.players[user_id].username) {
+            id = user_id;
+        };
+    })
+    return id;
+}
 
 methods.getGamePlayer = (user_id) => {
     if (user_id in game_data.players) {
@@ -203,23 +199,6 @@ methods.listGameTile = () => {
 app.get('/ping', (req, res) => {
     console.log('/ping', req.query);
     res.status(200).send('Pong!');
-});
-
-app.get('/user/find', (req, res) => {
-    console.log('/user/find', req.query);
-    const { token, username } = req.query;
-    if (methods.isToken(token)) {
-        let user = methods.getUserByUsername(username);
-        if (user != null) {
-            // Success
-            res.status(200).send(user);
-        } else {
-            res.status(204).send();
-        }
-    } else {
-        // Unauthorized
-        res.status(401).send();
-    }
 });
 
 app.get('/user/get', (req, res) => {
@@ -378,6 +357,28 @@ app.get('/game/player/get', (req, res) => {
         let player = methods.getGamePlayer(id);
         if (player !== undefined) {
             res.status(200).send(player);
+        } else {
+            res.status(204).send();
+        }
+    } else {
+        // Unauthorized
+        res.status(401).send();
+    }
+});
+
+app.get('/game/player/find', (req, res) => {
+    console.log('/game/player/find', req.query);
+    const { token, username } = req.query;
+    if (methods.isToken(token)) {
+        let player_id = methods.getUserIdByUsername(username);
+        if (player_id != null) {
+            let player = methods.getGamePlayer(id);
+            if (player != null) {
+                // Success
+                res.status(200).send(player);
+            } else {
+                res.status(204).send();
+            }
         } else {
             res.status(204).send();
         }
