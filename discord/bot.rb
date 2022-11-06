@@ -34,10 +34,6 @@ $bot.message(start_with: PREFIX + 'init') do |event|
     event.respond format_success('Initialized bot!')
 end
 
-$bot.message(start_with: PREFIX + 'idyll') do |event|
-    event.respond format_success("Bot active!")
-end
-
 $bot.message(start_with: PREFIX + 'logo') do |event|
     event.send_file(File.open("./logo.png", 'r'))
     event.message.delete
@@ -48,12 +44,13 @@ $bot.message(start_with: PREFIX + 'help') do |event|
     event.respond format_help(message.join("\n"))
 end
 
-$bot.message(start_with: PREFIX + 'find') do |event|
+$bot.message(start_with: PREFIX + 'locate') do |event|
     username = event.content.split(" ")[1]
     player = find_player(username)
     unless player == {}
         planet = player["position"][0].split("_")[0..-2].join("_").upcase
-        event.respond format_quote("Located **#{username}** on planet ``#{planet}``...")
+        sector = player["position"][0].split("_")[-1].upcase
+        event.respond format_quote("Located **#{username}** on planet ``#{planet}`` in sector ``#{sector}``...")
     else
         event.respond format_quote("Unable to locate **#{username}**...")
     end

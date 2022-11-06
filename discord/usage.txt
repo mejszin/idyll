@@ -1,4 +1,4 @@
 # The Consortium
 
 Commands:
-  ~find <username>    Locate a player
+  ~locate <username>    Locate a player
