@@ -372,7 +372,7 @@ app.get('/game/player/find', (req, res) => {
     if (methods.isToken(token)) {
         let player_id = methods.getUserIdByUsername(username);
         if (player_id != null) {
-            let player = methods.getGamePlayer(id);
+            let player = methods.getGamePlayer(player_id);
             if (player != null) {
                 // Success
                 res.status(200).send(player);
