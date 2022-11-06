@@ -5,4 +5,7 @@ client/login.txt
 server/api/data/*.json
 server/api/node_modules
 scripts/api_token
+discord/discord_client_id.key
+discord/discord_token.key
+discord/invite_link.txt
 notes.txt

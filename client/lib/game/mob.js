@@ -23,9 +23,13 @@ class Mob {
 
     draw() {
         this.checkImage();
-        let x = this.position.x * TILESIZE;
-        let y = this.position.y * TILESIZE;
-        image(this.image, x - (TILESIZE / 2), y - (TILESIZE / 2), TILESIZE, TILESIZE);
+        image(
+            this.image,
+            TILESIZE * (this.position.x - 0.5),
+            TILESIZE * (this.position.y - 0.5),
+            TILESIZE,
+            TILESIZE
+        );
     }
 
     update() {
