@@ -116,6 +116,20 @@ methods.getUser = (token, user_id = null) => {
     }
 }
 
+methods.getUserByUsername = (username) => {
+    if (token in user_data) {
+        var user = null;
+        Object.keys(user_data).forEach(function(token) {
+            if (username == user_data[token].username) {
+                user = user_data[token];
+            };
+        })
+        return user;
+    } else {
+        return undefined;
+    }
+}
+
 methods.usernameExists = (username) => {
     var exists = false;
     Object.keys(user_data).forEach(function(token) {
@@ -189,6 +203,23 @@ methods.listGameTile = () => {
 app.get('/ping', (req, res) => {
     console.log('/ping', req.query);
     res.status(200).send('Pong!');
+});
+
+app.get('/user/find', (req, res) => {
+    console.log('/user/find', req.query);
+    const { token, username } = req.query;
+    if (methods.isToken(token)) {
+        let user = methods.getUserByUsername(username);
+        if (user != null) {
+            // Success
+            res.status(200).send(user);
+        } else {
+            res.status(204).send();
+        }
+    } else {
+        // Unauthorized
+        res.status(401).send();
+    }
 });
 
 app.get('/user/get', (req, res) => {
