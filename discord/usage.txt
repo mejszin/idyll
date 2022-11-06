@@ -1,0 +1,4 @@
+# The Consortium
+
+Commands:
+  ~find <username>    Locate a player

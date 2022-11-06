@@ -1,4 +1,4 @@
-PREFIX = '.'
+PREFIX = '~'
 
 GAME_URL = "https://idyll.machin.dev"
 
@@ -21,8 +21,10 @@ puts "\n"
 require 'rest-client'
 ENV["DISCORDRB_NONACL"] = "true"
 require 'discordrb' # https://www.rubydoc.info/gems/discordrb/3.2.1/
+require 'json'
 
 require_relative './helpers.rb'
+require_relative '../scripts/api.rb'
 
 $bot = Discordrb::Bot.new(token: DISCORD_TOKEN, client_id: DISCORD_CLIENT_ID)
 
@@ -34,6 +36,27 @@ end
 
 $bot.message(start_with: PREFIX + 'idyll') do |event|
     event.respond format_success("Bot active!")
+end
+
+$bot.message(start_with: PREFIX + 'logo') do |event|
+    event.send_file(File.open("./logo.png", 'r'))
+    event.message.delete
+end
+
+$bot.message(start_with: PREFIX + 'help') do |event|
+    message = File.readlines("./usage.txt").map { |line| line.chomp.gsub('~', PREFIX) }
+    event.respond format_help(message.join("\n"))
+end
+
+$bot.message(start_with: PREFIX + 'find') do |event|
+    username = event.content.split(" ")[1]
+    player = find_player(username)
+    unless player == {}
+        planet = player["position"][0].split("_")[0..-2].join("_").upcase
+        event.respond format_quote("Located **#{username}** on planet ``#{planet}``...")
+    else
+        event.respond format_quote("Unable to locate **#{username}**...")
+    end
 end
 
 $bot.run
