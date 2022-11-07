@@ -16,6 +16,14 @@ function setPosition(token = player_token, area, x, y) {
     });
 }
 
+function getAreaPlayers(token = player_token, id, callback) {
+    var url = `${BASE_URL}/game/area/players/get?token=${token}&id=${id}`;
+    httpGet(url, 'json', false, function(response) {
+        terminal_log('/game/area/players/get', { id: response.id });
+        callback(response);
+    });
+}
+
 function getArea(token = player_token, id, callback) {
     if (api_lock == false) {
         api_lock = true;
@@ -23,7 +31,12 @@ function getArea(token = player_token, id, callback) {
         httpGet(url, 'json', false, function(response) {
             terminal_log('/game/area/get', { id: response.id });
             api_lock = false;
-            callback(response);
+            getAreaPlayers(token, id, (players) => {
+                let area = response;
+                area.players = players;
+                terminal_log('players=', players);
+                callback(area);
+            })
         });
     }
 }

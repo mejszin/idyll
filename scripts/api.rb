@@ -54,6 +54,10 @@ def get_area(area_id)
     get('/game/area/get', { :token => API_TOKEN, :id => area_id })
 end
 
+def get_area_players(area_id)
+    get('/game/area/players/get', { :token => API_TOKEN, :id => area_id })
+end
+
 def set_tile(tile)
     post('/game/tile/set', { :token => API_TOKEN, :id => tile.id }, tile.to_json)
 end
@@ -72,4 +76,8 @@ end
 
 def get_assets()
     get('/game/assets/get', { :token => API_TOKEN })
+end
+
+def get_player(id)
+    get('/game/player/get', { :token => API_TOKEN, :id => id })
 end

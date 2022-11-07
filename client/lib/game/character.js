@@ -1,4 +1,4 @@
-class Mob {
+class Character {
     constructor(user_id = null) {
         this.user_id = user_id;
         this.position = createVector(0.5, 0.5);
@@ -45,7 +45,7 @@ class Mob {
         this.position = createVector(x, y);
         this.to = createVector(x, y);
     }
-
+    
     checkImage() {
         switch (this.direction.heading()) {
             case    0: var img = this.images.right; break; // -135  -90  -45

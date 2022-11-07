@@ -1,13 +1,13 @@
-class Player extends Mob {
+class Player extends Character {
     constructor(user_id, token = null) {
         super(user_id);
         this.user_id = user_id;
         this.token = token;
         this.goto_lock = false;
-        getTile(player_token, 'monster_eye_right', (tile) => { this.images.right = tile });
-        getTile(player_token, 'monster_eye_down', (tile) => { this.images.down = tile });
-        getTile(player_token, 'monster_eye_up', (tile) => { this.images.up = tile });
-        getTile(player_token, 'monster_eye_left', (tile) => { this.images.left = tile });
+        getTile(this.token, 'monster_eye_right', (tile) => { this.images.right = tile });
+        getTile(this.token, 'monster_eye_down', (tile) => { this.images.down = tile });
+        getTile(this.token, 'monster_eye_up', (tile) => { this.images.up = tile });
+        getTile(this.token, 'monster_eye_left', (tile) => { this.images.left = tile });
     }
 
     interact(x, y, duration = null) {
@@ -55,6 +55,10 @@ class Player extends Mob {
                 if (link_id == 'S') { this.reposition(this.position.x    , offset              ) }
                 if (link_id == 'W') { this.reposition(AREA_WIDTH - offset, this.position.y     ) }
                 this.goto_lock = false;
+                ghosts = [];
+                api_area.players.forEach(user_id => {
+                    ghosts.push(new Ghost(user_id));
+                });
             });
             return true;
         } else {

@@ -12,6 +12,7 @@ var player;
 var cursor_image;
 var tile_images = {};
 var tiles = {};
+var ghosts = [];
 
 var inventory;
 var locale;
@@ -53,6 +54,7 @@ function draw() {
         area.draw(area.maps.ground);
         area.draw(area.maps.mask);
         player.draw();
+        ghosts.forEach(ghost => { ghost.draw() });
         area.draw(area.maps.fringe);
         inventory.draw();
         locale.draw();
