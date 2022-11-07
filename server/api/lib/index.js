@@ -138,7 +138,7 @@ methods.getUserIdByUsername = (username) => {
         if (username == game_data.players[user_id].username) {
             id = user_id;
         };
-    })
+    });
     return id;
 }
 
@@ -172,6 +172,15 @@ methods.getGameArea = (area_id) => {
     }
 }
 
+methods.getGameAreaPlayers = (area_id) => {
+    let players = [];
+    Object.keys(game_data.players).forEach(function(user_id) {
+        if (game_data.players[user_id].position[0] == area_id) {
+            players.push(user_id);
+        };
+    });
+    return players;
+}
 methods.setGameTile = (tile_id, data) => {
     game_data.tiles[tile_id] = data;
     return true;
@@ -346,6 +355,20 @@ app.get('/game/area/get', (req, res) => {
         res.status(401).send();
     }
 });
+
+app.get('/game/area/players/get', (req, res) => {
+    console.log('/game/area/players/get', req.query);
+    const { token, id } = req.query;
+    if (methods.isToken(token)) {
+        // Success
+        let players = methods.getGameAreaPlayers(id);
+        res.status(200).send(players);
+    } else {
+        // Unauthorized
+        res.status(401).send();
+    }
+});
+
 
 app.get('/game/player/get', (req, res) => {
     console.log('/game/player/get', req.query);
