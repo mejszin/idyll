@@ -40,14 +40,17 @@ class Map
             row.each_with_index do |t, i|
                 @map[j][i] = choose(tile) if rand < percentage
             end
+
         end
     end
-
+        
     def to_json
-        @map.map do |row| 
-            row.map do |tile|
-                { :id => (tile == nil ? nil : tile) }
+        data = {}
+        @map.map.with_index do |row, j| 
+            row.map.with_index do |tile, i|
+                data[[i, j]] = tile unless tile == nil
             end
         end
+        return data
     end
 end

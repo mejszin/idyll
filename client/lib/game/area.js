@@ -10,10 +10,6 @@ class Area {
         };
     }
 
-    cartesian_to_index(i, j) {
-        return j * AREA_WIDTH + i;
-    }
-
     debug(i, j) {
         let mask_tile = area.get(area.maps.mask, i, j);
         let ground_tile = area.get(area.maps.ground, i, j);
@@ -28,21 +24,21 @@ class Area {
     }
 
     get(map, i, j) {
-        return map[this.cartesian_to_index(i, j)];
+        return map[cartesian_to_index(i, j)];
     }
 
     destruct(map, i, j, becomes = null, connected = null) {
-        map[this.cartesian_to_index(i, j)].destruct(becomes);
+        map[cartesian_to_index(i, j)].destruct(becomes);
         if (connected != null) {
             if (connected.mask != null) {
                 connected.mask.forEach(relative => {
-                    let index = this.cartesian_to_index(i + relative[0], j + relative[1]);
+                    let index = cartesian_to_index(i + relative[0], j + relative[1]);
                     if (index > -1 && index < AREA_WIDTH * AREA_HEIGHT) { area.maps.mask[index].destruct() };
                 })
             }
             if (connected.fringe != null) {
                 connected.fringe.forEach(relative => {
-                    let index = this.cartesian_to_index(i + relative[0], j + relative[1]);
+                    let index = cartesian_to_index(i + relative[0], j + relative[1]);
                     if (index > -1 && index < AREA_WIDTH * AREA_HEIGHT) { area.maps.fringe[index].destruct() };
                 })
             }
@@ -78,16 +74,12 @@ class Area {
     }
 
     parseMap(api_map) {
-        var map = []
-        for (let j = 0; j < api_map.length; j += 1) {
-            for (let i = 0; i < api_map[0].length; i += 1) {
-                let id = api_map[j][i].id;;
-                map.push(new Tile(id, createVector(i, j)));
-                if ((id !== null) && !(id in tiles)) {
-                    cacheTile(id);
-                }
-            }
-        }
+        var map = blank_map();
+        Object.keys(api_map).forEach(coords => {
+            let [i, j] = JSON.parse(coords);
+            let index = cartesian_to_index(i, j);
+            map[index] = new Tile(api_map[coords], createVector(i, j));
+        });
         return map;
     }
 

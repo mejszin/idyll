@@ -24,7 +24,7 @@ require 'discordrb' # https://www.rubydoc.info/gems/discordrb/3.2.1/
 require 'json'
 
 require_relative './helpers.rb'
-require_relative '../scripts/api.rb'
+require_relative '../scripts/api.rb' # Idyll API methods
 
 $bot = Discordrb::Bot.new(token: DISCORD_TOKEN, client_id: DISCORD_CLIENT_ID)
 
