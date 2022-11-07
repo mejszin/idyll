@@ -212,7 +212,11 @@ app.get('/user/login', async (req, res) => {
     const { username, password } = req.query;
     if (methods.usernameExists(username)) {
         var token = await methods.findCredentials(username, password);
-        console.log('Found credentials!', 'token=', token);
+        if (token != null) {
+            console.log('Found credentials!', 'token=', token);
+        } else {
+            console.log('Incorrect password...');
+        }
     } else {
         var token = null;
         console.log('Could not find credentials...');
