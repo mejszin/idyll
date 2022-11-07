@@ -13,25 +13,10 @@ var cursor_image;
 var tile_images = {};
 var tiles = {};
 
+var inventory;
+
 var mouse_down_tile;
 var mouse_down_start;
-
-function keyboardInput() {
-    if (!player.moving()) {
-        let translation = createVector(0, 0);
-        let step = 0.5;
-        if (keyIsDown(unchar('W')) || keyIsDown(UP_ARROW   )) { translation.add(createVector(0, -step)) }
-        if (keyIsDown(unchar('A')) || keyIsDown(LEFT_ARROW )) { translation.add(createVector(-step, 0)) }
-        if (keyIsDown(unchar('S')) || keyIsDown(DOWN_ARROW )) { translation.add(createVector(0, step)) }
-        if (keyIsDown(unchar('D')) || keyIsDown(RIGHT_ARROW)) { translation.add(createVector(step, 0)) }
-        if (translation.mag() > 0) {
-            player.move(
-                player.position.x + translation.x,
-                player.position.y + translation.y
-            );
-        }
-    }
-}
 
 function setup() {
 	canvas = createCanvas(TILESIZE * AREA_WIDTH, TILESIZE * AREA_HEIGHT);
@@ -44,6 +29,7 @@ function setup() {
     cursor_image = tile_images['tiny_galaxy_interface'][128];
     player = new Player(player_id, player_token);
     getPlayer(player_token, player_id, (api_player) => {
+        inventory = new Inventory();
         let [area_id, x, y] = api_player.position;
         getArea(player_token, area_id, (api_area) => {
             area = new Area(api_area);
@@ -65,6 +51,7 @@ function draw() {
         area.draw(area.maps.mask);
         player.draw();
         area.draw(area.maps.fringe);
+        inventory.draw();
     } catch (e) {
         terminal_log(e);
     }
