@@ -240,7 +240,6 @@ app.get('/user/new', async (req, res) => {
             // Success
             methods.writeUsers();
             methods.writeGame();
-            methods.writeProjects();
             res.status(200).send({ token: token });
         } else {
             res.status(204).send();

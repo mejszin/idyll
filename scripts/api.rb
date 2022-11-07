@@ -34,6 +34,10 @@ def get(route, headers = {})
     return res.code == '200' ? JSON.parse(res.body) : {}
 end
 
+def new_user(username, password)
+    get('/user/new', { :username => username, :password => password })
+end
+
 def find_player(username)
     get('/game/player/find', { :token => API_TOKEN, :username => username })
 end
