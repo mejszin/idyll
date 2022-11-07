@@ -125,7 +125,10 @@ methods.findCredentials = async (username, password) => {
         Object.keys(user_data).forEach(async function(token) {
             if (username == user_data[token].username) {
                 console.log('Comparing credentials for', username, 'password=', password, 'hash=', user_data[token].password.hash);
-                const result = await bcrypt.compare(password, user_data[token].password.hash);
+                const result = await bcrypt.compare(password, user_data[token].password.hash, 
+                    function(err) { console.log('err=', err) },
+                    function(res) { console.log('res=', res) }
+                );
                 resolve(result ? token : null);
             } else {
                 resolve(null);
