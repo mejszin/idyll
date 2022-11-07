@@ -46,7 +46,7 @@ class Area {
                     let index = cartesian_to_index(i + relative[0], j + relative[1]);
                     if (index > -1 && index < AREA_WIDTH * AREA_HEIGHT) {
                         area.maps.fringe.tiles[index].destruct();
-                        this.syncDestruct(area.fringe.mask, i + relative[0], j + relative[1]);
+                        this.syncDestruct(area.maps.fringe, i + relative[0], j + relative[1]);
                     };
                 })
             }
