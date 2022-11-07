@@ -42,6 +42,10 @@ def find_player(username)
     get('/game/player/find', { :token => API_TOKEN, :username => username })
 end
 
+def set_position(area, x, y, token = API_TOKEN)
+    get('/game/player/position/set', { :token => token, :area => area, :x => x, :y => y })
+end
+
 def set_area(area)
     post('/game/area/set', { :token => API_TOKEN, :id => area.id }, area.to_json)
 end
