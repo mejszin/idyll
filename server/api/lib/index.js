@@ -325,7 +325,7 @@ app.post('/game/area/set', (req, res) => {
         // Success
         methods.setGameArea(id, data);
         methods.writeGame();
-        res.status(200).send();
+        res.status(200).send({});
     } else {
         // Unauthorized
         res.status(401).send();

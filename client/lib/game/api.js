@@ -28,6 +28,13 @@ function getArea(token = player_token, id, callback) {
     }
 }
 
+function setArea(token = player_token, area) {
+    var url = `${BASE_URL}/game/area/set?token=${token}&id=${area.id}`;
+    httpPost(url, 'json', area, function(response) {
+        terminal_log('/game/area/set', response);
+    });
+}
+
 function getPlayer(token = player_token, id = player_id, callback) {
     var url = `${BASE_URL}/game/player/get?token=${token}&id=${id}`;
     httpGet(url, 'json', false, function(response) {

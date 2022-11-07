@@ -1,13 +1,13 @@
 function calculate_loot(loot_table) {
-    let calculated = {}
+    let result = {}
     loot_table.forEach(loot => {
-        let [id, quantities] = loot;
-        calculated[id] = quantities.random();
+        let [item_id, possible_quantities] = loot;
+        result[item_id] = possible_quantities.random();
     })
-    return calculated;
+    return result;
 }
 
-function blank_map() {
+function blankMap() {
     let map = [];
     for (let j = 0; j < AREA_HEIGHT; j++) {
         for (let i = 0; i < AREA_WIDTH; i++) {

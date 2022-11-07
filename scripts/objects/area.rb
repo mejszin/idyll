@@ -8,9 +8,9 @@ class Area
         @id = id
         @name = name
         @links = {}
-        @ground = Map.new('water')
-        @mask = Map.new
-        @fringe = Map.new
+        @ground = Map.new('ground', 'water')
+        @mask = Map.new('mask')
+        @fringe = Map.new('fringe')
     end
 
     def parse_links

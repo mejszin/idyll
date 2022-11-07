@@ -4,7 +4,8 @@ MAP_WIDTH = 20 # 32
 MAP_HEIGHT = 16 # 24
 
 class Map
-    def initialize(initial = nil)
+    def initialize(id, initial = nil)
+        @id = id
         fill(initial)
     end
 
@@ -45,10 +46,13 @@ class Map
     end
         
     def to_json
-        data = {}
+        data = {
+            :id => @id,
+            :tiles => {},
+        }
         @map.map.with_index do |row, j| 
             row.map.with_index do |tile, i|
-                data[[i, j]] = tile unless tile == nil
+                data[:tiles][[i, j].join(',')] = tile unless tile == nil
             end
         end
         return data
