@@ -5,12 +5,13 @@ require_relative './common.rb'
 
 BASE_URL = 'https://idyll.machin.dev/api'
 
-API_TOKEN_PATH = File.dirname(__FILE__) + '/api_token'
+API_TOKEN_BASENAME = '/api_token'
+API_TOKEN_PATH = File.dirname(__FILE__) + API_TOKEN_BASENAME
 
 if File.file?(API_TOKEN_PATH)
     API_TOKEN = File.read(API_TOKEN_PATH)
 else
-    message = "Can't find ./api_token file\nMake sure any scripts are executed from within the ./scripts directory"
+    message = "Can't find #{API_TOKEN_BASENAME} file\nMake sure any scripts are executed from within the /scripts directory"
     STDERR.puts safe_colorize(message, :red)
     exit
 end

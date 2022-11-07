@@ -19,4 +19,5 @@ function keyboardInput() {
 function keyPressed() {
     // HUD
     if (keyIsDown(unchar('E'))) { inventory.toggle() }
+    if (keyIsDown(unchar('M'))) { locale.toggle() }
 }

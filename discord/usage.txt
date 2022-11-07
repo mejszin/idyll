@@ -1,4 +1,4 @@
 # The Consortium
 
 Commands:
-  ~locate <username>    Locate a player
+  ~locate <username> <emoji:optional>   Locate a player

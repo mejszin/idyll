@@ -4,13 +4,16 @@ require_relative './objects/groups.rb'
 
 PLANET_ID = 'test_planet'
 PLANET_NAME = 'Test Planet'
-PLANET_SIZE = 3
+PLANET_SIZE = 5
 
 square = alpha_square(PLANET_SIZE, PLANET_ID)
 
-areas = square.flatten.map do |map_id|
+areas = square.flatten.map.with_index do |map_id, index|
     area = Area.new(map_id, PLANET_NAME)
     area.links = square_neighbors(square, map_id)
+    area.metadata = {
+        locale: { id: PLANET_ID, name: PLANET_NAME, index: index, width: PLANET_SIZE, height: PLANET_SIZE }
+    }
     area.ground.fill('dirt_a')
     area.ground.fill(DIRT_TILES - ['dirt_a'], 0.5)
     area.mask.fill('torch', 0.05)

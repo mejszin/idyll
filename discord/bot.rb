@@ -46,11 +46,12 @@ end
 
 $bot.message(start_with: PREFIX + 'locate') do |event|
     username = event.content.split(" ")[1]
+    emoji = event.content.split(" ")[2] == "emoji"
     player = find_player(username)
     unless player == {}
-        planet = player["position"][0].split("_")[0..-2].join("_").upcase
-        sector = player["position"][0].split("_")[-1].upcase
-        event.respond format_quote("Located **#{username}** on planet ``#{planet}`` in sector ``#{sector}``...")
+        locale = get_area(player["position"][0])["metadata"]["locale"]
+        event.respond format_quote("Located **#{username}** in locale ``#{locale["name"]}``...")
+        event.respond format_quote(emoji ? locale_emoji_minimap(locale) : locale_minimap(locale))
     else
         event.respond format_quote("Unable to locate **#{username}**...")
     end

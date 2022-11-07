@@ -3,12 +3,14 @@ class Area {
         this.api_data = api_data;
         this.id = api_data.id;
         this.name = api_data.name;
+        this.metadata = api_data.metadata
         this.links = api_data.links;
         this.maps = {
             ground: { id: 'ground', tiles: this.parseMap(api_data.maps.ground) },
             mask:   { id: 'mask',   tiles: this.parseMap(api_data.maps.mask) },
             fringe: { id: 'fringe', tiles: this.parseMap(api_data.maps.fringe) },
         };
+        locale.set(this.metadata.locale);
     }
 
     debug(i, j) {

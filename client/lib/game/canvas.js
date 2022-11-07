@@ -14,6 +14,7 @@ var tile_images = {};
 var tiles = {};
 
 var inventory;
+var locale;
 
 var mouse_down_tile;
 var mouse_down_start;
@@ -24,12 +25,14 @@ function setup() {
     frameRate(FRAME_RATE);
     noSmooth();
     noStroke();
+    textAlign(LEFT, TOP);
     angleMode(DEGREES);
 	document.addEventListener('contextmenu', event => event.preventDefault());
     cursor_image = tile_images['tiny_galaxy_interface'][128];
     player = new Player(player_id, player_token);
     getPlayer(player_token, player_id, (api_player) => {
         inventory = new Inventory();
+        locale = new Locale();
         let [area_id, x, y] = api_player.position;
         getArea(player_token, area_id, (api_area) => {
             area = new Area(api_area);
@@ -52,6 +55,7 @@ function draw() {
         player.draw();
         area.draw(area.maps.fringe);
         inventory.draw();
+        locale.draw();
     } catch (e) {
         terminal_log(e);
     }
