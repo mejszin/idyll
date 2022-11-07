@@ -94,12 +94,6 @@ methods.createUser = async (username, password) => {
         username: username,
         position: [null, 0, 0], // [area, x, y]
     }
-    project_data.users[user_id] = {
-        username: username,
-        activity: {},
-        tags: {},
-        entries: {}
-    }
     return token;
 }
 
