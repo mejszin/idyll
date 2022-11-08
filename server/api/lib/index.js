@@ -359,6 +359,7 @@ app.get('/game/chat/new', (req, res) => {
     const { token, message } = req.query;
     if (methods.isToken(token)) {
         methods.newChat(token, message);
+        methods.writeChat();
         res.status(200).send(true);
     } else {
         // Unauthorized
@@ -371,7 +372,7 @@ app.get('/game/chat/get', (req, res) => {
     const { token, filter } = req.query;
     if (methods.isToken(token)) {
         // Success
-        let chat = res.getChat(filter);
+        let chat = methods.getChat(filter);
         res.status(200).send(chat);
     } else {
         // Unauthorized
