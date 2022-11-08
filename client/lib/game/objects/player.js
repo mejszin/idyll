@@ -55,10 +55,7 @@ class Player extends Character {
                 if (link_id == 'S') { this.reposition(this.position.x    , offset              ) }
                 if (link_id == 'W') { this.reposition(AREA_WIDTH - offset, this.position.y     ) }
                 this.goto_lock = false;
-                ghosts = [];
-                api_area.players.forEach(user_id => {
-                    ghosts.push(new Ghost(user_id));
-                });
+                ghosts = getGhosts();
             });
             return true;
         } else {

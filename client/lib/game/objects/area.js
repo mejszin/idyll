@@ -3,8 +3,9 @@ class Area {
         this.api_data = api_data;
         this.id = api_data.id;
         this.name = api_data.name;
-        this.metadata = api_data.metadata
+        this.metadata = api_data.metadata;
         this.links = api_data.links;
+        this.players = api_data.players;
         this.maps = {
             ground: { id: 'ground', tiles: this.parseMap(api_data.maps.ground) },
             mask:   { id: 'mask',   tiles: this.parseMap(api_data.maps.mask) },
@@ -14,9 +15,9 @@ class Area {
     }
 
     debug(i, j) {
-        let mask_tile = area.get(area.maps.mask, i, j);
-        let ground_tile = area.get(area.maps.ground, i, j);
-        let fringe_tile = area.get(area.maps.fringe, i, j);
+        let ground_tile = this.get(this.maps.ground, i, j);
+        let mask_tile   = this.get(this.maps.mask  , i, j);
+        let fringe_tile = this.get(this.maps.fringe, i, j);
         console.table({
             ground: ground_tile.name(),
             mask: mask_tile.name(),

@@ -38,6 +38,7 @@ function setup() {
         getArea(player_token, area_id, (api_area) => {
             area = new Area(api_area);
             player.reposition(parseFloat(x), parseFloat(y));
+            ghosts = getGhosts();
         });
     });
 }

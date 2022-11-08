@@ -1,3 +1,13 @@
+function getGhosts() {
+    ghosts = [];
+    area.players.forEach(user_id => {
+        if (user_id != player.user_id) {
+            ghosts.push(new Ghost(user_id));
+        }
+    });
+    return ghosts;
+}
+
 class Ghost extends Character {
     constructor(user_id) {
         super(user_id);
