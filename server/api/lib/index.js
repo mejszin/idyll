@@ -91,14 +91,13 @@ methods.newChat = (token, message) => {
         let user_id = user_data[token].id;
         let username = user_data[token].username;
         let area_id = game_data.players[user_id].position[0];
-        let locale_name = game_data.areas[area_id].metadata.locale.name;
         let chat = {
             time: Date.now(),
             message: message,
             author: {
                 id: user_id,
                 username: username,
-                locale: locale_name
+                area: area_id
             }
         }
         console.log(chat);
