@@ -359,7 +359,7 @@ app.get('/game/chat/new', (req, res) => {
     const { token, message } = req.query;
     if (methods.isToken(token)) {
         methods.newChat(token, message);
-        res.status(200).send();
+        res.status(200).send(true);
     } else {
         // Unauthorized
         res.status(401).send();
