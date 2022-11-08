@@ -16,6 +16,7 @@ var ghosts = [];
 
 var inventory;
 var locale;
+var chat;
 
 var mouse_down_tile;
 var mouse_down_start;
@@ -34,6 +35,8 @@ function setup() {
     getPlayer(player_token, player_id, (api_player) => {
         inventory = new Inventory();
         locale = new Locale();
+        chat = new Chat();
+        player.username = api_player.username;
         let [area_id, x, y] = api_player.position;
         getArea(player_token, area_id, (api_area) => {
             area = new Area(api_area);
@@ -49,20 +52,26 @@ function tintScreen(c) {
     rect(0, 0, width, height);
 }
 
+function drawHUD() {
+    inventory.draw();
+    locale.draw();
+    chat.draw();
+}
+
 function draw() {
     background('#000000');
     try {
         area.draw(area.maps.ground);
         area.draw(area.maps.mask);
         player.draw();
-        ghosts.forEach(ghost => { ghost.draw() });
+        drawGhosts();
         area.draw(area.maps.fringe);
-        inventory.draw();
-        locale.draw();
+        drawHUD();
+        player.update();
+        keyboardInput();
+        mouseInput();
+        syncGhosts();
     } catch (e) {
         terminal_log(e);
     }
-    player.update();
-    keyboardInput();
-    mouseInput();
 }

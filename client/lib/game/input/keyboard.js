@@ -1,6 +1,5 @@
 function keyboardInput() {
-    // Movement
-    if (!player.moving()) {
+    if ((!player.moving()) && (!chat.visible)) {
         let translation = createVector(0, 0);
         let step = 0.5;
         if (keyIsDown(unchar('W')) || keyIsDown(UP_ARROW   )) { translation.add(createVector(0, -step)) }
@@ -17,7 +16,13 @@ function keyboardInput() {
 }
 
 function keyPressed() {
-    // HUD
-    if (keyIsDown(unchar('E'))) { inventory.toggle() }
-    if (keyIsDown(unchar('M'))) { locale.toggle() }
+    if (chat.visible) {
+        if (keyCode == ENTER ) { chat.send()  ; return }
+        if (keyCode == ESCAPE) { chat.cancel(); return }
+        chat.append(key);
+    } else {
+        if (keyIsDown(unchar('E'))) { inventory.toggle() }
+        if (keyIsDown(unchar('M'))) { locale.toggle() }
+        if (keyIsDown(unchar('T'))) { chat.toggle() }
+    }
 }

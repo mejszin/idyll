@@ -2,6 +2,7 @@ class Player extends Character {
     constructor(user_id, token = null) {
         super(user_id);
         this.user_id = user_id;
+        this.username = user_id;
         this.token = token;
         this.goto_lock = false;
         getTile(this.token, 'monster_eye_right', (tile) => { this.images.right = tile });

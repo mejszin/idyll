@@ -19,6 +19,8 @@ const game_data_path = './data/game.json';
 var game_data = fs.existsSync(game_data_path) ? JSON.parse(fs.readFileSync(game_data_path)) : {};
 const asset_data_path = './data/assets.json';
 var asset_data = fs.existsSync(asset_data_path) ? JSON.parse(fs.readFileSync(asset_data_path)) : {};
+const chat_data_path = './data/chat.json';
+var chat_data = fs.existsSync(chat_data_path) ? JSON.parse(fs.readFileSync(chat_data_path)) : {};
 
 const bcrypt = require('bcrypt');
 
@@ -47,6 +49,10 @@ methods.writeAssets = () => {
     fs.writeFileSync(asset_data_path, JSON.stringify(asset_data));
 }
 
+methods.writeChat = () => {
+    fs.writeFileSync(chat_data_path, JSON.stringify(chat_data));
+}
+
 methods.isToken = (token) => {
     return (token in user_data);
 }
@@ -66,13 +72,49 @@ methods.newSaltHash = (password) => {
     });
 };
 
+methods.getChat = (time_filter = null) => {
+    if (time_filter == null) {
+        return chat_data;
+    } else {
+        let result = [];
+        let index = chat_data.length - 1;
+        while ((index > -1) && (chat_data[index].time > time_filter)) {
+            result.push(chat_data[index]);
+            index -= 1;
+        }
+        return result;
+    }
+};
+
+methods.newChat = (token, message) => {
+    if (methods.isToken(token)) {
+        let chat = {
+            time: Date.now(),
+            message: message,
+            author: {
+                id: user_data[token].id,
+                username: user_data[token].usernmae
+            }
+        }
+        console.log(chat);
+        chat_data.push(chat);
+        return true;
+    } else {
+        return false;
+    }
+};
+
 methods.getAssets = () => {
     return asset_data;
 };
 
 methods.setAssets = (token, assets) => {
-    asset_data = assets;
-    return true;
+    if (methods.isToken(token)) {
+        asset_data = assets;
+        return true;
+    } else {
+        return false;
+    }
 };
 
 methods.createUser = async (username, password) => {
@@ -306,6 +348,31 @@ app.get('/game/tile/get', (req, res) => {
         } else {
             res.status(204).send();
         }
+    } else {
+        // Unauthorized
+        res.status(401).send();
+    }
+});
+
+app.get('/game/chat/new', (req, res) => {
+    console.log('/game/chat/new', req.query);
+    const { token, message } = req.query;
+    if (methods.isToken(token)) {
+        methods.newChat(token, message);
+        res.status(200).send();
+    } else {
+        // Unauthorized
+        res.status(401).send();
+    }
+});
+
+app.get('/game/chat/get', (req, res) => {
+    console.log('/game/chat/get', req.query);
+    const { token, filter } = req.query;
+    if (methods.isToken(token)) {
+        // Success
+        let chat = res.getChat(filter);
+        res.status(200).send(chat);
     } else {
         // Unauthorized
         res.status(401).send();
