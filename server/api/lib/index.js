@@ -93,7 +93,7 @@ methods.newChat = (token, message) => {
             message: message,
             author: {
                 id: user_data[token].id,
-                username: user_data[token].usernmae
+                username: user_data[token].username
             }
         }
         console.log(chat);

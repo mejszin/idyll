@@ -34,6 +34,14 @@ def get(route, headers = {})
     return res.code == '200' ? JSON.parse(res.body) : {}
 end
 
+def new_chat(message)
+    get('/game/chat/new', { :token => API_TOKEN, :message => message })
+end
+
+def get_chat(filter = nil)
+    get('/game/chat/get', { :token => API_TOKEN, :filter => filter })
+end
+
 def new_user(username, password)
     get('/user/new', { :username => username, :password => password })
 end
