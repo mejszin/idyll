@@ -1,21 +1,28 @@
 class Chat extends HUD {
-    constructor(data = {}) {
+    constructor() {
         super();
-        this.data = data;
-        this.text = '';
+        this.message = '';
     }
 
     append(str) {
-        this.text += str;
+        if (str.length == 1) {
+            this.message += str;
+        }
+    }
+
+    backspace() {
+        this.message = this.message.slice(0, -1);
     }
 
     send() {
-        console.log(player.username, 'says', this.text);
-        this.cancel();
+        console.log(player.username, 'says', this.message);
+        newChat(player.token, this.message, response => {
+            this.cancel();
+        });
     }
 
     cancel() {
-        this.text = '';
+        this.message = '';
         this.hide();
     }
 
@@ -24,7 +31,7 @@ class Chat extends HUD {
             fill('#AA00FF');
             rect(0, height - 40, 200, 40)
             fill('#FFFFFF');
-            text(this.text, 16, height - 32);
+            text(this.message, 16, height - 32);
         }
     }
 }

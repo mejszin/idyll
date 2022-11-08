@@ -16,6 +16,14 @@ function setPosition(token = player_token, area, x, y) {
     });
 }
 
+function newChat(token = player_token, message) {
+    var url = `${BASE_URL}/game/chat/new?token=${token}&message=${message}`;
+    httpGet(url, 'json', false, function(response) {
+        terminal_log('/game/chat/new', message, response);
+        callback(response);
+    });
+}
+
 function getAreaPlayers(token = player_token, id, callback) {
     var url = `${BASE_URL}/game/area/players/get?token=${token}&id=${id}`;
     httpGet(url, 'json', false, function(response) {

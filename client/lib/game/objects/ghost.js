@@ -1,5 +1,4 @@
 function syncGhosts() {
-    return;
     ghosts.forEach(ghost => { ghost.sync() });
     if (frameCount % 20 == 0) {
         getAreaPlayers(player.token, area.id, players => {
@@ -27,7 +26,6 @@ function removeOutOfAreaGhosts() {
         ghosts.splice(ghost, 1);
     });
 }
-
 
 function getGhosts() {
     ghosts = [];

@@ -88,12 +88,17 @@ methods.getChat = (time_filter = null) => {
 
 methods.newChat = (token, message) => {
     if (methods.isToken(token)) {
+        let user_id = user_data[token].id;
+        let username = user_data[token].username;
+        let area_id = game_data.users[user_id].position[0];
+        let locale_name = game_data.areas[area_id].metadata.locale.name;
         let chat = {
             time: Date.now(),
             message: message,
             author: {
-                id: user_data[token].id,
-                username: user_data[token].username
+                id: user_id,
+                username: username,
+                locale: locale_name
             }
         }
         console.log(chat);

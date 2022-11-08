@@ -17,8 +17,9 @@ function keyboardInput() {
 
 function keyPressed() {
     if (chat.visible) {
-        if (keyCode == ENTER ) { chat.send()  ; return }
-        if (keyCode == ESCAPE) { chat.cancel(); return }
+        if (keyCode == ENTER    ) { chat.send()     ; return }
+        if (keyCode == ESCAPE   ) { chat.cancel()   ; return }
+        if (keyCode == BACKSPACE) { chat.backspace(); return }
         chat.append(key);
     } else {
         if (keyIsDown(unchar('E'))) { inventory.toggle() }

@@ -57,4 +57,21 @@ $bot.message(start_with: PREFIX + 'locate') do |event|
     end
 end
 
+def prettify_relay_message(message)
+    time = Time.at(message["time"] / 1000).strftime("%H:%M %m/%d/%Y")
+    location = message.key?("location") ? message["location"] : "Unknown"
+    str = "``[#{time}]`` ``loc. #{location}`` **#{message["author"]["username"]}:** #{message["message"]}"
+    return str
+end
+
+$bot.message(start_with: PREFIX + 'relay') do |event|
+    event.respond format_quote("Relaying communications to **##{event.channel.name}**...")
+#   event.respond format_quote("Current time: #{Time.now.to_i * 1000}")
+#   event.respond format_quote("Messages in the last hour:")
+    messages = get_chat((Time.now.to_i - 3600) * 1000).sort { |a, b| a["time"] <=> b["time"] }
+    messages.each do |message|
+        event.respond format_quote(prettify_relay_message(message))
+    end
+end
+
 $bot.run

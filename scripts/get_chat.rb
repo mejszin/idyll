@@ -1,3 +1,3 @@
 require_relative './api.rb'
 
-puts new_chat('Test message')
+puts get_chat(1667917380000)

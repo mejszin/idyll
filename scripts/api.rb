@@ -8,7 +8,7 @@ BASE_URL = 'https://idyll.machin.dev/api'
 API_TOKEN_BASENAME = '/api_token'
 API_TOKEN_PATH = File.dirname(__FILE__) + API_TOKEN_BASENAME
 
-VERBOSE = true
+VERBOSE = false
 
 if File.file?(API_TOKEN_PATH)
     API_TOKEN = File.read(API_TOKEN_PATH)
